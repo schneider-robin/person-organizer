@@ -1,0 +1,10 @@
+server:
+  port: 8081
+
+enable:
+  runner-print: true
+  backend-scheduler: true
+
+backend:
+  host: localhost
+  port: 8080

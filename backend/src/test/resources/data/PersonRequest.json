@@ -1,0 +1,24 @@
+{
+	"firstname": "Lucas",
+	"lastname": "Hernandez",
+	"person_attributes_request": {
+		"age": 34,
+		"height": 2.13,
+		"country": "ES"
+	},
+	"physical_address_id_request": "1b1afa94-fb40-4bf0-bcdb-bd1a4b20345b",
+	"mail_address_requests": [
+		{
+			"contact": "Hernandez-Lucas@gmx.de",
+			"is_business": true
+		},
+		{
+			"contact": "Hernandez-Lucas-Shops@gmx.de",
+			"is_business": false
+		}
+	],
+	"hobby_id_requests": [
+		"d3e278c9-b0c0-4798-8389-7d0a9e406136",
+		"a8eee882-75ad-45bf-9e3a-3c74f2066345"
+	]
+}

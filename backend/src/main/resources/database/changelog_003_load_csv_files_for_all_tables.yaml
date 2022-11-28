@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: person-organizer-3
+      author: schneider-robin
+      changes:
+
+        - loadData:
+            schemaName: person_organizer
+            tableName: person_attributes
+            encoding: UTF-8
+            separator: ;
+            file: database/data/person_attributes-revision-1.csv
+
+        - loadData:
+            schemaName: person_organizer
+            tableName: physical_address
+            encoding: UTF-8
+            separator: ;
+            file: database/data/physical_address-revision-1.csv
+
+        # person_attributes and physical_address must be present at this point in time
+        # referenced by person table
+        - loadData:
+            schemaName: person_organizer
+            tableName: person
+            encoding: UTF-8
+            separator: ;
+            file: database/data/person-revision-1.csv
+
+        # person must be present at this point in time
+        # referenced by mail_address table
+        - loadData:
+              schemaName: person_organizer
+              tableName: mail_address
+              encoding: UTF-8
+              separator: ;
+              file: database/data/mail_address-revision-1.csv
+
+        - loadData:
+            schemaName: person_organizer
+            tableName: hobby
+            encoding: UTF-8
+            separator: ;
+            file: database/data/hobby-revision-1.csv
+
+        # person and hobby must be present at this point in time
+        # referenced by mapping table
+        - loadData:
+            schemaName: person_organizer
+            tableName: person_hobby_mapping
+            encoding: UTF-8
+            separator: ;
+            file: database/data/person_hobby_mapping-revision-1.csv

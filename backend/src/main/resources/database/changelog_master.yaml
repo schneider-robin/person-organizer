@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: database/changelog_001_create_schema.yaml
+  - include:
+      file: database/changelog_002_create_tables.yaml
+  - include:
+      file: database/changelog_003_load_csv_files_for_all_tables.yaml

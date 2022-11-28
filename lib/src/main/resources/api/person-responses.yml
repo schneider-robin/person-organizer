@@ -1,0 +1,159 @@
+openapi: 3.0.1
+
+info:
+  title: title
+  version: 1.0.0
+  description: test description
+  contact:
+    name: contact name
+    email: email@email.de
+
+servers:
+  - url: "https://localhost:8080"
+    description: "test"
+
+paths:
+  /person/{firstname}:
+    get:
+      tags:
+        - Person
+      operationId: getPersonByFirstname
+      summary: get the person by its firstname
+      description: get one person by firstname or receive an error response
+      parameters:
+        - name: firstname
+          in: path
+          required: true
+          schema:
+            type: string
+            example: Robin
+      responses:
+        200:
+          description: returns person
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonResponse'
+        default:
+          description: error occurred
+          content:
+            application/problem+json:
+              schema:
+                $ref: './problem-response.yml#/ProblemResponse'
+
+components:
+  schemas:
+
+    PersonListResponse:
+      type: object
+      required:
+        - person_responses
+      properties:
+        person_responses:
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonResponse'
+
+    PersonResponse:
+      type: object
+      required:
+        - id
+        - full_name
+        - creation_timestamp
+        - person_attributes_response
+        - physical_address_response
+        - mail_address_response
+        - hobby_response
+      properties:
+        id:
+          type: string
+          format: uuid
+        full_name:
+          type: string
+        creation_timestamp:
+          type: string
+          format: date-time
+        person_attributes_response:
+          $ref: '#/components/schemas/PersonAttributesResponse'
+        physical_address_response:
+          $ref: '#/components/schemas/PhysicalAddressResponse'
+        mail_address_responses:
+          type: array
+          items:
+            $ref: '#/components/schemas/MailAddressResponse'
+        hobby_responses:
+          type: array
+          items:
+            $ref: '#/components/schemas/HobbyResponse'
+
+    PersonAttributesResponse:
+      allOf:
+        - $ref: './person-common.yml#/components/schemas/PersonAttributesReqRes'
+
+    PhysicalAddressResponse:
+      type: object
+      required:
+        - street_and_city
+      properties:
+        street_and_city:
+          type: string
+
+    MailAddressResponse:
+      allOf:
+        - $ref: './person-common.yml#/components/schemas/MailAddressReqRes'
+
+    HobbyResponse:
+      type: object
+      required:
+        - name
+        - cost
+      properties:
+        name:
+          type: string
+        cost:
+          type: number
+
+
+
+    PersonPageResponse:
+      allOf:
+        - $ref: '#/components/schemas/PageResponse'
+        - type: object
+          properties:
+            content:
+              type: array
+              items:
+                $ref: '#/components/schemas/PersonResponse'
+
+    PageResponse:
+      allOf:
+        - $ref: '#/components/schemas/PageRequest'
+        - type: object
+          properties:
+            total_pages:
+              type: integer
+              format: int32
+            total_elements:
+              type: integer
+              format: int64
+            first:
+              type: boolean
+            last:
+              type: boolean
+
+    PageRequest:
+      required:
+        - page_size
+        - page_number
+      properties:
+        page_size:
+          type: integer
+          format: int32
+          default: 10
+          minimum: 0
+          exclusiveMinimum: true
+        page_number:
+          type: integer
+          format: int32
+          default: 0
+          minimum: 0

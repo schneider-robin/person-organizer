@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: person-organizer-1
+      author: schneider-robin
+      changes:
+        - sql:
+            dbms: h2,postgresql
+            endDelimiter: ;
+            sql: CREATE SCHEMA IF NOT EXISTS person_organizer

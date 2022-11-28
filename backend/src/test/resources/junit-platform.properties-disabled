@@ -1,0 +1,4 @@
+
+cucumber.glue=de/schneider/robin/backend/integration/cucumber
+cucumber.features=de/schneider/robin/backend/integration
+cucumber.publish.quiet=true 

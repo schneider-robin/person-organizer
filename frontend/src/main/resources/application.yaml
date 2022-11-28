@@ -1,0 +1,7 @@
+
+server:
+  port: 8082
+
+backend:
+  host: localhost
+  port: 8080

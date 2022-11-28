@@ -1,0 +1,59 @@
+
+input PersonMinimal {
+    firstname: String!
+    lastname: String!
+}
+
+type PersonResponse {
+    id: ID
+    fullName: String
+    creationTimestamp: String
+}
+
+type PersonListResponse {
+    personResponses: [PersonResponse]
+}
+
+#---------------------------------------------------------------------
+
+type Query {
+    getPersonByFirstname(firstname: String!): PersonResponse
+    allPeople: PersonListResponse
+}
+
+type Mutation {
+    createPersonMinimal(personMinimal: PersonMinimal): PersonResponse
+}
+
+#---------------------------------------------------------------------
+
+# Insomnia Request Examples:
+
+#mutation Person {
+#    createPersonMinimal(personMinimal: {
+#        firstname: "...",
+#        lastname: "..."
+#    }) {
+#        id
+#        fullName
+#        creationTimestamp
+#    }
+#}
+
+#query Person {
+#    getPersonByFirstname(firstname: "...") {
+#        id
+#        fullName
+#        creationTimestamp
+#    }
+#}
+
+#query People {
+#    allPeople {
+#        personResponses {
+#            id
+#            fullName
+#            creationTimestamp
+#        }
+#    }
+#}

@@ -1,0 +1,23 @@
+
+-- join one-to-many tables
+select p.creation_timestamp, p.firstname, p.lastname, ma.contact
+from person_organizer.person p
+inner join person_organizer.mail_address ma
+on p.person_id = ma.person_id
+where ma.is_business = true;
+
+-- join one-to-one/many-to-one tables
+select p.creation_timestamp, p.firstname, p.lastname, pa.age, pa.height, pa.country
+from person_organizer.person p
+inner join person_organizer.person_attributes pa
+on p.person_attributes_id = pa.person_attributes_id
+where pa.age > 20;
+
+-- query entries based on sub-query result of other table
+select *
+from person_organizer.person p
+where p.person_attributes_id in (
+	select pa.person_attributes_id
+	from person_organizer.person_attributes pa
+	where pa.age > 20
+)

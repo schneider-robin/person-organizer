@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>de.schneider.robin</groupId>
+        <artifactId>person-organizer</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>person-organizer-lib</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>0.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.swagger.parser.v3</groupId>
+            <artifactId>swagger-parser</artifactId>
+            <version>2.0.24</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>4.2.3</version>
+                <executions>
+                    <execution>
+                        <id>person-requests</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/api/person-requests.yml</inputSpec>
+                            <configOptions>
+                                <dateLibrary>java8</dateLibrary>
+                                <java8>true</java8>
+                                <interfaceOnly>true</interfaceOnly>
+                            </configOptions>
+                            <modelPackage>de.schneider.robin.lib.api.model</modelPackage>
+                            <apiPackage>de.schneider.robin.lib.api.model</apiPackage>
+                            <importMappings>
+                                MailAddressRequest=de.schneider.robin.lib.api.model.predefined.MailAddressRequest
+                            </importMappings>
+                            <generatorName>spring</generatorName>
+                            <library>spring-boot</library>
+                            <generateModels>true</generateModels>
+                            <generateApis>false</generateApis>
+                            <generateModelDocumentation>false</generateModelDocumentation>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>person-responses</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/api/person-responses.yml</inputSpec>
+                            <configOptions>
+                                <dateLibrary>java8</dateLibrary>
+                                <java8>true</java8>
+                                <interfaceOnly>true</interfaceOnly>
+                            </configOptions>
+                            <modelPackage>de.schneider.robin.lib.api.model</modelPackage>
+                            <apiPackage>de.schneider.robin.lib.api.model</apiPackage>
+                            <generatorName>spring</generatorName>
+                            <library>spring-boot</library>
+
+                            <generateModels>true</generateModels>
+                            <generateApis>false</generateApis>
+                            <generateModelDocumentation>false</generateModelDocumentation>
+                            <generateModelTests>false</generateModelTests>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>

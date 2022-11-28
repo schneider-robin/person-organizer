@@ -1,0 +1,585 @@
+_type: export
+__export_format: 4
+__export_date: 2022-11-19T17:17:46.092Z
+__export_source: insomnia.desktop.app:v2022.6.0
+resources:
+  - _id: req_cd2274d8cbb44c249d0370fe90e0b5bf
+    parentId: fld_0552a13498e2481296f1a3bacc7a70d1
+    modified: 1668871930649
+    created: 1668776265300
+    url: localhost:8080/event-log
+    name: event-log test
+    description: ""
+    method: POST
+    body: {}
+    parameters:
+      - id: pair_bda03348a7174fb29a5919eef84d6b87
+        name: message
+        value: Robin
+        description: ""
+    headers: []
+    authentication: {}
+    metaSortKey: -1662092841189.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_0552a13498e2481296f1a3bacc7a70d1
+    parentId: fld_e4e90cdeb5d1400388ab5fa7c3eb63c5
+    modified: 1668780900325
+    created: 1668780900325
+    name: event-log
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1668780900325
+    _type: request_group
+  - _id: fld_e4e90cdeb5d1400388ab5fa7c3eb63c5
+    parentId: wrk_5df2e36ddff14eca9e7d29b253f75a45
+    modified: 1668004217198
+    created: 1650377587957
+    name: person_organizer
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1650377587957
+    _type: request_group
+  - _id: wrk_5df2e36ddff14eca9e7d29b253f75a45
+    parentId: null
+    modified: 1620285330528
+    created: 1620285330528
+    name: playground
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_e9505930182a46e88d4e1bb07f566542
+    parentId: fld_0552a13498e2481296f1a3bacc7a70d1
+    modified: 1668780915443
+    created: 1668779413610
+    url: localhost:8080/event-log/all
+    name: event log all
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1662092841139.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9a3ebf52b42c4e058fc1b208c78f53ee
+    parentId: fld_d7223abdab184e659d7c409ec9df3efb
+    modified: 1668608566574
+    created: 1655403751811
+    url: localhost:8080/person
+    name: person
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"firstname": "Martin",
+        	"lastname": "Fischer",
+        	"person_attributes_request": {
+        		"age": 42,
+        		"height": 1.80,
+        		"country": "DE"
+        	},
+        	"physical_address_id_request": "1b1afa94-fb40-4bf0-bcdb-bd1a4b20345b",
+        	"mail_address_requests": [
+        		{
+        			"contact": "martin-fischer@gmx.de",
+        			"is_business": true
+        		},
+        		{
+        			"contact": "martin.fischer@web.de",
+        			"is_business": false
+        		}
+        	],
+        	"hobby_id_requests": [
+        		"d3e278c9-b0c0-4798-8389-7d0a9e406136", 
+        		"a8eee882-75ad-45bf-9e3a-3c74f2066345"
+        	]
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_248224ae9667413c90f59ebeabb172f6
+    authentication: {}
+    metaSortKey: -1648565535198.7188
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_d7223abdab184e659d7c409ec9df3efb
+    parentId: fld_e4e90cdeb5d1400388ab5fa7c3eb63c5
+    modified: 1668607445179
+    created: 1655404782054
+    name: post person
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1655404782054
+    _type: request_group
+  - _id: req_ae0f819fbb574a80bd30ac4063ad4750
+    parentId: fld_d7223abdab184e659d7c409ec9df3efb
+    modified: 1668776257101
+    created: 1668607186508
+    url: localhost:8080/person/app-event
+    name: person app-event
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"firstname": "Martin",
+        	"lastname": "Fischer"
+        }
+    parameters:
+      - id: pair_bda03348a7174fb29a5919eef84d6b87
+        name: message
+        value: Robin4
+        description: ""
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1643843623094.164
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_bc85e1d6eb654d0e8030acc8854089c6
+    parentId: fld_d7223abdab184e659d7c409ec9df3efb
+    modified: 1668695938308
+    created: 1667835500885
+    url: localhost:8080/person/kafka
+    name: person kafka
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"firstname": "Marc",
+        	"lastname": "Fischer"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1641482667041.8867
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_7d0107139a7240f4bd0ea3a88897bcb4
+    parentId: fld_d7223abdab184e659d7c409ec9df3efb
+    modified: 1668609641290
+    created: 1668593276757
+    url: localhost:8080/person/random
+    name: person random
+    description: ""
+    method: POST
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1640302189015.748
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b68ae1a1e3de43639c921f5bfbd681d5
+    parentId: fld_d7223abdab184e659d7c409ec9df3efb
+    modified: 1668596122692
+    created: 1667999027577
+    url: localhost:8080/person/csv
+    name: person csv
+    description: ""
+    method: POST
+    body:
+      mimeType: multipart/form-data
+      params:
+        - id: pair_03652a03fd0841edac68082b4a9d93ce
+          name: csvFile
+          value: ""
+          description: ""
+          type: file
+          fileName: C:\Users\Administrator\Git\software_engineering\programming\programming_languages\java\spring_boot\person_organizer\backend\src\main\resources\csv\person_minimal.csv
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: multipart/form-data
+        id: pair_248224ae9667413c90f59ebeabb172f6
+      - id: pair_b20623a21a6d4ae39fc4cb7d3a45169e
+        name: Accept
+        value: text/csv
+        description: ""
+    authentication: {}
+    metaSortKey: -1639121710989.6094
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d6bcfbc559ae4d0b97116c5df489c689
+    parentId: fld_fded84ccfc5246e7ad89c551c75c9e64
+    modified: 1668781923093
+    created: 1654532716224
+    url: localhost:8080/person/Andreas
+    name: person by firstname
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - id: pair_7deef8ecca1b4dd1af9f44ccaf0a0ecf
+        name: ""
+        value: ""
+        description: ""
+    headers: []
+    authentication: {}
+    metaSortKey: -1650377594920
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_fded84ccfc5246e7ad89c551c75c9e64
+    parentId: fld_e4e90cdeb5d1400388ab5fa7c3eb63c5
+    modified: 1668607432021
+    created: 1654514578785
+    name: get person or people
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1654514578785
+    _type: request_group
+  - _id: req_09da1a7c3ab64650b9478e5c3cfc8f5d
+    parentId: fld_fded84ccfc5246e7ad89c551c75c9e64
+    modified: 1655140686611
+    created: 1654352902634
+    url: localhost:8080/people/under-age/30
+    name: people under age
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1649457183633
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_23a7ae8e513943f8a796c3674792c700
+    parentId: fld_fded84ccfc5246e7ad89c551c75c9e64
+    modified: 1655140701880
+    created: 1655140696542
+    url: localhost:8080/people/over-age/30
+    name: people over age
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1648996977989.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_e92692e09d3b4dab97a3f5d8480bf64f
+    parentId: fld_fded84ccfc5246e7ad89c551c75c9e64
+    modified: 1655144807461
+    created: 1654514529616
+    url: localhost:8080/people/text-in-firstname
+    name: people text-in-firstname
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - id: pair_d32c08409a9f4edf912d4da9cda01a98
+        name: text
+        value: Andrea
+        description: ""
+    headers: []
+    authentication: {}
+    metaSortKey: -1648766875167.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0ed1549e635849c0b52043e65a3b2cea
+    parentId: fld_fded84ccfc5246e7ad89c551c75c9e64
+    modified: 1655144814371
+    created: 1654516343757
+    url: localhost:8080/people/text-eq-lastname
+    name: people text-eq-lastname
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - id: pair_d32c08409a9f4edf912d4da9cda01a98
+        name: text
+        value: Bauer
+        description: ""
+    headers: []
+    authentication: {}
+    metaSortKey: -1648651823756.875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_814cbea9a42c40e6aa1fa881d6d9721f
+    parentId: fld_fded84ccfc5246e7ad89c551c75c9e64
+    modified: 1655140779555
+    created: 1654512109652
+    url: localhost:8080/people/page
+    name: people page
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - id: pair_d32c08409a9f4edf912d4da9cda01a98
+        name: page_size
+        value: "1"
+        description: ""
+      - id: pair_9c54fdc09f26473ab45075dc43520d56
+        name: page_number
+        value: "0"
+        description: ""
+    headers: []
+    authentication: {}
+    metaSortKey: -1648594298051.4375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_41bdb26fb1c047e98efc222e9ee1cba2
+    parentId: fld_fded84ccfc5246e7ad89c551c75c9e64
+    modified: 1668596465838
+    created: 1655047909752
+    url: localhost:8080/people/all
+    name: people all as json
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_65487c4eb96043d082d73f2dd496289c
+        name: Accept
+        value: application/json
+        description: ""
+    authentication: {}
+    metaSortKey: -1648579916625.0781
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_7c2e6dcf27514902a28479aa98d59e9a
+    parentId: fld_fded84ccfc5246e7ad89c551c75c9e64
+    modified: 1668596450743
+    created: 1668596420534
+    url: localhost:8080/people/all
+    name: people all as csv
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - id: pair_573321a3dfcd46f68ea26073ed71e08f
+        name: Accept
+        value: text/csv
+        description: ""
+    authentication: {}
+    metaSortKey: -1648576321268.4883
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_25189a10c17c476484c120ab2242c214
+    parentId: fld_fded84ccfc5246e7ad89c551c75c9e64
+    modified: 1668878091028
+    created: 1668875579251
+    url: " http://localhost:8080/graphql"
+    name: people all graphql
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"\nquery People {\n\tallPeople {\n\t\tpersonResponses
+        {\n\t\t\tid\n\t\t\tfullName\n\t\t\tcreationTimestamp\n\t\t}\n\t}\n}\n\n#
+        query Dealer {\n# \tdealerById(dealerId: \"ITAA00881\") {\n#
+        \t\tdealerId\n# \t\tname\n# \t\taddress\n# \t\tkvpsPartnerKey\n#
+        \t\tkvpsId\n# \t\tservices\n# \t\tadditionalData{\n#
+        \t\t\tdisplayName\n# \t\t\tadditionalServices\n# \t\t}\n# \t}\n#
+        }\n","operationName":"People"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1648576321218.4883
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_1bcf3d062a9c48cb9f18b701b1d102ad
+    parentId: wrk_5df2e36ddff14eca9e7d29b253f75a45
+    modified: 1620285693836
+    created: 1620285330531
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: {}
+    color: null
+    isPrivate: false
+    metaSortKey: 1610976888661
+    _type: environment
+  - _id: jar_d85fcfe2f84f4eb896882aa6f85cc97b
+    parentId: wrk_5df2e36ddff14eca9e7d29b253f75a45
+    modified: 1620285330543
+    created: 1620285330543
+    name: Default Jar
+    cookies:
+      - key: JSESSIONID
+        value: D9D903678A5A6338FDDDCF10FAF74DF7
+        domain: localhost
+        path: /
+        httpOnly: true
+        hostOnly: true
+        creation: 2021-03-05T14:57:15.913Z
+        lastAccessed: 2021-04-16T10:33:16.017Z
+        id: "5159196043570136"
+      - key: fifa.session
+        value: s%3AeyJpZCI6ImVkMzUwNGQ2LTlmYmUtNDAzNS1hYjQzLWQzMTJlZWU1Y2NhMyIsImV4cCI6MTYzNDExOTk1OX0%3D.zHgSPM30OvXA4awcfzK1z27Ou7H6thq4yJ2PpbQs4Ig
+        domain: fifa-test.media-saturn.com
+        path: /
+        secure: true
+        httpOnly: true
+        hostOnly: true
+        creation: 2021-03-10T08:23:41.163Z
+        lastAccessed: 2021-04-16T10:12:39.140Z
+        id: "19681017443297977"
+      - key: JSESSIONID
+        value: FB9A70479F9F85FA41EDF937A40EF7CC
+        domain: internal-archive-service.dev.subscriptions.d-p.io
+        path: /
+        httpOnly: true
+        extensions:
+          - SameSite=strict
+        hostOnly: true
+        creation: 2021-03-11T14:24:27.601Z
+        lastAccessed: 2021-03-15T08:24:33.621Z
+        id: "22345585342069008"
+      - key: JSESSIONID
+        value: 6ECDE00A22E37B6FC9FA817204E041F2
+        domain: subscription-masterdata.dev.subscriptions.d-p.io
+        path: /
+        httpOnly: true
+        hostOnly: true
+        creation: 2021-04-16T10:35:35.322Z
+        lastAccessed: 2021-04-16T10:39:43.397Z
+        id: "011121158281770072"
+    _type: cookie_jar
+  - _id: spc_d7b12c65c67e40d2a90d490710adb05f
+    parentId: wrk_5df2e36ddff14eca9e7d29b253f75a45
+    modified: 1620285330592
+    created: 1620285330546
+    fileName: playground
+    contents: ""
+    contentType: yaml
+    _type: api_spec
+  - _id: env_48fd9f175521400ea8869870871ce55e
+    parentId: env_1bcf3d062a9c48cb9f18b701b1d102ad
+    modified: 1620285718750
+    created: 1620285330533
+    name: Backend Environment
+    data:
+      spring_boot_backend: localhost:8080
+    dataPropertyOrder:
+      "&":
+        - spring_boot_backend
+    color: "#65c814"
+    isPrivate: false
+    metaSortKey: 1614956901282
+    _type: environment
+  - _id: env_eaf71eaa218c4ee59abd3dc1e6b23413
+    parentId: env_1bcf3d062a9c48cb9f18b701b1d102ad
+    modified: 1620285330537
+    created: 1620285330537
+    name: Other Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1614957968792
+    _type: environment

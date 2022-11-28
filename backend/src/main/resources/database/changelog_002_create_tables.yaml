@@ -1,0 +1,218 @@
+databaseChangeLog:
+  - changeSet:
+      id: person-organizer-2
+      author: schneider-robin
+      changes:
+
+        # referenced by person table
+        # OneToOne relation to person table (one person have one person_attributes)
+        - createTable:
+            schemaName: person_organizer
+            tableName: person_attributes
+            columns:
+              - column:
+                  name: person_attributes_id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: age
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: height
+                  type: decimal(3,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: country
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+
+        # referenced by person table
+        # ManyToOne relation to person table (many persons can have the same physical_address)
+        - createTable:
+            schemaName: person_organizer
+            tableName: physical_address
+            columns:
+              - column:
+                  name: physical_address_id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: street
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: city
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+
+        # main/root table
+        # direct reference to person_attributes and physical_address
+        # inverse reference to mail_address and hobby
+        - createTable:
+            schemaName: person_organizer
+            tableName: person
+            columns:
+              - column:
+                  name: person_id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: creation_timestamp
+                  type: timestamp with time zone
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: true
+              - column:
+                  name: firstname
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lastname
+                  type: varchar(200)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: person_attributes_id
+                  type: uuid
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_person_person_attributes
+                    references: person_organizer.person_attributes(person_attributes_id)
+              - column:
+                  name: physical_address_id
+                  type: uuid
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_person_physical_address
+                    references: person_organizer.physical_address(physical_address_id)
+
+        # OneToMany relation to person table (one person can have many mail_addresses)
+        # extra person_id column with reference to person table
+        - createTable:
+            schemaName: person_organizer
+            tableName: mail_address
+            columns:
+              - column:
+                  name: mail_address_id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: contact
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_business
+                  type: boolean
+                  defaultValue: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: person_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_mail_address_person
+                    references: person_organizer.person(person_id)
+
+        # ManyToMany relation to person table
+        # (one persons can have many hobbies)
+        # (one hobby can be done by many persons)
+        # mapping via extra table
+        - createTable:
+            schemaName: person_organizer
+            tableName: hobby
+            columns:
+              - column:
+                  name: hobby_id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: name
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cost
+                  type: currency
+                  constraints:
+                    nullable: true
+
+        # ManyToMany mapping table
+        # primary keys of both tables
+        - createTable:
+            schemaName: person_organizer
+            tableName: person_hobby_mapping
+            columns:
+              - column:
+                  name: person_id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    foreignKeyName: fk_person_hobby_mapping_person
+                    references: person_organizer.person(person_id)
+              - column:
+                  name: hobby_id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    foreignKeyName: fk_person_hobby_mapping_hobby
+                    references: person_organizer.hobby(hobby_id)
+
+        # extra table for security users
+        - createTable:
+            schemaName: person_organizer
+            tableName: security_user
+            columns:
+              - column:
+                  name: user_id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: roles
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+
+        # just an example for index creation to one column
+        - createIndex:
+            schemaName: person_organizer
+            tableName: person
+            indexName: idx_person_firstname
+            columns:
+              - column:
+                  name: firstname
+                  type: varchar(200)

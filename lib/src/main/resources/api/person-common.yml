@@ -1,0 +1,44 @@
+openapi: 3.0.1
+
+info:
+  title: title
+  version: 1.0.0
+
+servers:
+  - url: "https://localhost:8080"
+    description: "test"
+
+paths:
+
+components:
+  schemas:
+
+    PersonAttributesReqRes:
+      type: object
+      required:
+        - age
+        - height
+        - country
+      properties:
+        age:
+          type: integer
+        height:
+          type: number
+          format: double
+        country:
+          type: string
+          enum: # x-extensible-enum
+            - DE
+            - FR
+            - ES
+
+    MailAddressReqRes:
+      type: object
+      required:
+        - contact
+        - is_business
+      properties:
+        contact:
+          type: string
+        is_business:
+          type: boolean

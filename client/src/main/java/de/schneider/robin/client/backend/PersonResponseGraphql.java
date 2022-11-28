@@ -1,0 +1,14 @@
+package de.schneider.robin.client.backend;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class PersonResponseGraphql {
+
+    private String fullName;
+    private String creationTimestamp;
+}

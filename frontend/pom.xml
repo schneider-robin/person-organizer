@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.schneider.robin</groupId>
+		<artifactId>person-organizer</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>person-organizer-frontend</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<!-- Spring Boot will render the html at runtime based on mustache templates -->
+	<!-- Just return an ModelAndView class inside controller, with the mustache filename inside -->
+	<!-- Mike Moller Nielsen: https://www.youtube.com/watch?v=rVaFl0i4980&t=198s -->
+	<!-- https://github.com/ekim197711/springboot-mustache -->
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mustache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.schneider.robin</groupId>
+			<artifactId>person-organizer-lib</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<version>2.6.7</version>
+			<optional>true</optional>
+			<!-- for ConfigurationProperties -->
+			<!-- helps intellij for autocomplete, via generated file under: -->
+			<!-- target/classes/META-INF/spring-configuration-metadata.json-->
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- Prepare react frontend code via "mvn clean compile" -->
+			<!-- 1) Compile react app into build folder via frontend-maven-plugin -->
+			<!-- 2) Copy build folder in target to other code via maven-resources-plugin -->
+			<!-- Mike Moller Nielsen: https://www.youtube.com/watch?v=7XxH-G9ckeU&t=733s -->
+			<!-- https://github.com/ekim197711/springboot-reactjs-maven -->
+
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.7.6</version>
+
+				<executions>
+					<execution>
+						<id>Install node and npm</id>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<nodeVersion>v16.16.0</nodeVersion>
+							<npmVersion>8.11.0</npmVersion>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>npm install</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<arguments>install</arguments>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>npm build</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<arguments>run build</arguments>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<nodeVersion>v10.15.2</nodeVersion>
+					<workingDirectory>src/main/react-js</workingDirectory>
+				</configuration>
+
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>Copy my react app into my Spring Boot target static folder</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/classes/static</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/react-js/build</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

@@ -1,0 +1,23 @@
+server.port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/person_organizer
+    username: postgres
+    password: postgres # ${DATABASE_PASSWORD}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+  data:
+    mongodb:
+      authentication-database: admin
+      # creates automatically database
+      # first insert creates collection
+      database: person_organizer
+      host: localhost
+      port: 27018
+      #username: mongodb
+      #password: mongodb

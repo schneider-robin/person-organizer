@@ -1,0 +1,96 @@
+openapi: 3.0.1
+
+info:
+  title: title
+  version: 1.0.0
+
+servers:
+  - url: "https://localhost:8080"
+    description: "test"
+
+paths:
+  /person:
+    post:
+      tags:
+        - Person
+      operationId: createPerson
+      summary: create new light person
+      description: send already existing id's for physical_address and hobby
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonRequest'
+      responses:
+        200:
+          description: returns the new person id
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
+        default:
+          description: error occurred
+          content:
+            application/problem+json:
+              schema:
+                $ref: './problem-response.yml#/ProblemResponse'
+
+components:
+  schemas:
+
+    PersonRequest:
+      type: object
+      required:
+        - firstname
+        - lastname
+        - person_attributes_request
+        - physical_address_request
+        - mail_address_requests
+        - hobby_requests
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        person_attributes_request:
+          $ref: '#/components/schemas/PersonAttributesRequest'
+        physical_address_id_request:
+          type: string
+          format: uuid
+        mail_address_requests:
+          type: array
+          items:
+            $ref: '#/components/schemas/MailAddressRequest'
+        hobby_id_requests:
+          type: array
+          items:
+            type: string
+            format: uuid
+
+    PersonAttributesRequest:
+      allOf:
+        - $ref: './person-common.yml#/components/schemas/PersonAttributesReqRes'
+
+    PhysicalAddressRequest:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+
+    # unused, is just a dummy, will be imported from predefined folder via pom.xml importMappings
+    MailAddressRequest:
+      allOf:
+        - $ref: './person-common.yml#/components/schemas/MailAddressReqRes'
+
+    HobbyRequest:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid

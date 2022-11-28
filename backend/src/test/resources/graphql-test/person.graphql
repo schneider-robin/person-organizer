@@ -1,0 +1,6 @@
+
+query person($firstname: String!) {
+     getPersonByFirstname(firstname: $firstname) {
+        fullName
+    }
+}

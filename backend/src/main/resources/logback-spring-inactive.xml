@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <springProfile name="postgres">
+        <contextName>person-organizer</contextName>
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <Pattern>
+                    %white(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}) %X{traceId:-}:%msg%n%ex{full}
+                </Pattern>
+            </layout>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+    <springProfile name="!postgres">
+        <contextName>person-organizer</contextName>
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+                <providers>
+                    <pattern>
+                        <pattern>
+                            {
+                            "timestamp": "%d{ISO8601}",
+                            "service": "%contextName",
+                            "severity": "%level",
+                            "thread": "%thread",
+                            "trace_id": "%X{traceId:-}",
+                            "span_id": "%X{spanId:-}",
+                            "parent_span_id": "%X{parentId:-}",
+                            "exportable": "%X{sampled:-}",
+                            "pid": "${PID:-}",
+                            "thread": "%thread",
+                            "class": "%logger{40}",
+                            "event_or_message ": "%msg",
+                            "stacktrace": "%ex{full}"
+                            }
+                        </pattern>
+                    </pattern>
+                </providers>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+</configuration>

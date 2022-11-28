@@ -1,0 +1,97 @@
+server.port: 8080
+
+spring:
+  application:
+    name: person-organizer-backend
+  profiles:
+    active: default # databases, kafka
+  #--------------------------------------------------
+  # Postgres
+  datasource:
+    url: jdbc:h2:mem:build;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=20000;MODE=PostgreSQL
+    username: build
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: false
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: false
+    properties:
+      hibernate:
+        default_schema: person_organizer
+        jdbc:
+          time_zone: UTC
+          lob:
+            non_contextual_creation: true
+  liquibase:
+    change-log: classpath:database/changelog_master.yaml
+    liquibaseSchema: PUBLIC
+    enabled: true
+  #--------------------------------------------------
+  # MongoDB
+  data:
+    mongodb:
+      database: person_organizer
+      host: localhost
+      port: 27019
+  mongodb:
+    embedded:
+      version: 4.0.3
+  #--------------------------------------------------
+  # GraphQL
+  graphql:
+    graphiql.enabled: true
+    cors.allowed-origins: "*"
+    schema.printer.enabled: true
+  #--------------------------------------------------
+  # Monitoring
+  sleuth:
+    baggage:
+      correlation-fields:
+        - X-B3-TraceId
+        - X-B3-SpanId
+        - X-B3-ParentSpanId
+      remote-fields:
+        - X-B3-TraceId
+        - X-B3-SpanId
+        - X-B3-ParentSpanId
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: beans, health, info, metrics, env, liquibase, mappings, refresh, shutdown, trace
+        # http://localhost:8080/actuator/...
+  endpoint:
+    beans:
+      enabled: true
+#--------------------------------------------------
+# API
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html # after localhost:8080
+    tags-sorter: alpha # sort rest-controller-names
+    operations-sorter: alpha # sort endpoints-names
+
+randomuser: # external api
+  url: https://randomuser.me/api/
+
+#--------------------------------------------------
+# Logging level
+# descending order: OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE
+logging:
+  level:
+    root: INFO
+    liquibase: WARN
+    org.apache.kafka: WARN
+    org.mongodb.driver: WARN
+    org:
+      springframework:
+        context.support: WARN
+        boot.autoconfigure.mongo.embedded: WARN
+        security: INFO
+

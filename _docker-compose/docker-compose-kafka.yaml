@@ -1,0 +1,86 @@
+version: "3"
+
+services:
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: "zookeeper"
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: wurstmeister/kafka
+    hostname: localhost
+    container_name: "kafka"
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 30s
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181 # same as in zookeeper service
+      KAFKA_BROKER_ID: 1
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_LISTENERS: INSIDE://:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+#      KAFKA_LOG_RETENTION_MS: 10000
+#      KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS: 5000
+#      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9092
+#      KAFKA_ADVERTISED_HOST_NAME: localhost
+#      KAFKA_ADVERTISED_PORT: 9092
+#      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9092,OUTSIDE://localhost:9094
+      KAFKA_CREATE_TOPICS: "PersonTopic:1:1,Topic2:1:1" # name:partitions:replicas/broker-count
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+# commands for kafka:
+# docker ps
+# docker exec -it container_id /bin/bash
+# cd /opt/kafka/bin
+# ls
+# list all available .sh scripts and choose one
+
+# kafka-topics.sh           --bootstrap-server localhost:9092 --list
+# kafka-topics.sh           --bootstrap-server localhost:9092 --topic Topic1 --describe
+# kafka-topics.sh           --bootstrap-server localhost:9092 --topic Topic1 --delete
+# kafka-topics.sh           --bootstrap-server localhost:9092 --topic Topic1 --create
+
+# kafka-console-producer.sh --bootstrap-server localhost:9092 --topic Topic1
+# insert data
+# kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic Topic1 --from-beginning
+# "control + c" to quit
+# "exit" to leave docker container
+
+
+
+
+
+# the ui service can not connect to the kafka service with this setting
+# the hostname of kafka needs be to disabled (means random host)
+# but then spring boot can not connect to localhost:9092
+
+#  kafka-ui:
+#    image: provectuslabs/kafka-ui:latest
+#    container_name: "kafka-ui"
+#    ports:
+#      - "8090:8080"
+#      # change port to 8090 to avoid conflict with spring boot backend
+#      # access kafka-ui at http://localhost:8090/
+#    environment:
+#      KAFKA_CLUSTERS_0_NAME: local
+#      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+
+#  kafdrop:
+#    image: obsidiandynamics/kafdrop
+#    restart: "no"
+#    ports:
+#      - "9000:9000"
+#    environment:
+#      KAFKA_BROKERCONNECT: "localhost:9092"
+#      JVM_OPTS: "-Xms16M -Xmx48M -Xss180K -XX:-TieredCompilation -XX:+UseStringDeduplication -noverify"
+

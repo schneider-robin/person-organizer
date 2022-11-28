@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: person_organizer
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      # connect e.g. via DBeaver
+    ports:
+      - "5433:5432"
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    environment:
+      # no default db or collection
+      # will be created automatically by spring
+      MONGO_INITDB_ROOT_USERNAME: mongodb
+      MONGO_INITDB_ROOT_PASSWORD: mongodb
+      # connect e.g. via Studio 3T
+    ports:
+      - "27018:27017"
+
+# Port mapping:
+# Host-PC:Container
+# Changed Host-PC port to avoid conflicts with installed databases
